@@ -67,6 +67,18 @@ def abruchbedingung1(spielfeld, spieler):
                 return 0
                 break
 
+        # vertikal
+        counter = 0
+        for i in range(3):
+            for e in range(3):
+                if spielfeld[e][i] == "X":
+                    counter += 1
+                if counter == 3:
+                    ausgabe_feld(spielfeld)
+                    print("Spieler 1 hat gewonnen")
+                    return 0
+                    break
+
         e = 0
         counter = 0
         for i in range(3):
@@ -106,6 +118,17 @@ def abruchbedingung1(spielfeld, spieler):
                 print("Spieler 2 hat gewonnen")
                 return 0
                 break
+        #vertikal
+        counter = 0
+        for i in range(3):
+            for e in range(3):
+                if spielfeld[e][i] == "O":
+                    counter += 1
+                if counter == 3:
+                    ausgabe_feld(spielfeld)
+                    print("Spieler 2 hat gewonnen")
+                    return 0
+                    break
 
         e = 0
         counter = 0
