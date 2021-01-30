@@ -56,16 +56,46 @@ def eingabe(spielfeld, liste, spieler):
     else:
         spielfeld[liste[0]][liste[1]] = "0"
 
-def abbruch(spielfeld):
-    #checken von welchem drei
-    #abruchbedingung verändern durch global
-    #rückgabe welcher spieler
 spieler = 0
+
+def check_stand(counter):
+    if counter == 3:
+        return 0
+
+
+
+def abruch(spielfeld, spieler):
+    counter = 0
+    # dann ablauf für spieler 1
+    if spieler % 2:
+        # horizontalen linien abgehandelt:
+        for i in range(3):
+            for e in range(2):
+                if spielfeld[i][e] == spielfeld[i][e +1]:
+                    counter += 1
+        check_stand(counter)
+        counter = 0
+        e = 0
+        #vertikale  Linien oben unten abgehandelt
+        for i  in range(2):
+            if spielfeld[i][e] == spielfeld[i+1][e+1]:
+                counter += 1
+            e += 1
+        check_stand(counter)
+        counter = 0
+        e = 2
+        #vertikale Linien unten oben abgehandelt
+        for i in range(2, 0, -1):
+            if spielfeld[i][e] == spielfeld[i-1][e-1]:
+                counter += 1
+            e -= 1
+        check_stand(counter)
+        counter = 0
 
 
 while abruch != 0:
     spieler += 1
     liste = conversion(spieler)
     eingabe(spielfeld, liste, spieler)
-    abruch(spielfeld)
+    abruch = abruch(spielfeld, spieler)
 
