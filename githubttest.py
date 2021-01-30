@@ -54,111 +54,82 @@ def eingabe(spielfeld, liste, spieler):
 
 
 def abruchbedingung1(spielfeld, spieler):
+    gewinn = 0
     if spieler %2:
-    # horizontal
-        for i in range(3):
-            counter = 0
-            for e in range(3):
-                if spielfeld[i][e] == "X":
-                    counter += 1
-            if counter == 3:
-                ausgabe_feld(spielfeld)
-                print("Spieler 1 hat gewonnen")
-                return 0
-                break
-
-        # vertikal
-        counter = 0
-        for i in range(3):
-            for e in range(3):
-                if spielfeld[e][i] == "X":
-                    counter += 1
-                if counter == 3:
-                    ausgabe_feld(spielfeld)
-                    print("Spieler 1 hat gewonnen")
-                    return 0
-                    break
-
-        e = 0
-        counter = 0
-        for i in range(3):
-            if spielfeld[i][e] == "X":
-                counter += 1
-            e += 1
-            if counter == 3:
-                ausgabe_feld(spielfeld)
-                print("Spieler 1 hat gewonnen")
-                return 0
-                break
-
-        e = 0
-        counter = 0
-        for i in range(2, -1, -1):
-            if spielfeld[i][e] == "X":
-                counter += 1
-            e += 1
-            if counter == 3:
-                ausgabe_feld(spielfeld)
-                print("Spieler 1 hat gewonnen")
-                return 0
-                break
-        if counter != 3 and spieler == 9:
-            print("Unentschieden")
+        #spieler1
+        checker = "X"
+        punkte = 0
+        a = horizontal(spielfeld, checker)
+        b = vertikal(spielfeld, checker)
+        c = quer1(spielfeld, checker)
+        d = quer2(spielfeld, checker)
 
 
+
+        if a == 1 or b == 1 or c == 1 or d == 1:
+            ausgabe_feld(spielfeld)
+            print("Spieler 1 hat gewonnen!")
+            gewinn = 1
+            return 0
     else:
-        # horizontal
-        for i in range(3):
-            counter = 0
-            for e in range(3):
-                if spielfeld[i][e] == "O":
-                    counter += 1
-            if counter == 3:
-                ausgabe_feld(spielfeld)
-                print("Spieler 2 hat gewonnen")
-                return 0
-                break
-        #vertikal
-        counter = 0
-        for i in range(3):
-            for e in range(3):
-                if spielfeld[e][i] == "O":
-                    counter += 1
-                if counter == 3:
-                    ausgabe_feld(spielfeld)
-                    print("Spieler 2 hat gewonnen")
-                    return 0
-                    break
+        # spieler2
+        checker = "O"
+        punkte = 0
+        a = horizontal(spielfeld, checker)
+        b = vertikal(spielfeld, checker)
+        c = quer1(spielfeld, checker)
+        d = quer2(spielfeld, checker)
 
-        e = 0
+        if a == 1 or b == 1 or c == 1 or d == 1:
+            ausgabe_feld(spielfeld)
+            print("Spieler 2 hat gewonnen!")
+            gewinn = 1
+            return 0
+
+    if gewinn == 0 and spieler == 9:
+        ausgabe_feld(spielfeld)
+        print("Unentschieden")
+        return 0
+
+def horizontal(spielfeld, checker):
+    for i in range(3):
         counter = 0
-        for i in range(3):
-            if spielfeld[i][e] == "O":
+        for e in range(3):
+            if spielfeld[i][e] == checker:
                 counter += 1
-            e += 1
             if counter == 3:
-                ausgabe_feld(spielfeld)
-                print("Spieler 2 hat gewonnen")
-                return 0
-                break
+                return 1
 
-        e = 0
+def vertikal(spielfeld, checker):
+    for i in range(3):
         counter = 0
-        for i in range(2, -1, -1):
-            if spielfeld[i][e] == "O":
+        for e in range(3):
+            if spielfeld[e][i] == checker:
                 counter += 1
-            e += 1
             if counter == 3:
-                ausgabe_feld(spielfeld)
-                print("Spieler 2 hat gewonnen")
-                return 0
-                break
+                return 1
 
-        if counter != 3 and spieler == 9:
-            print("Unentschieden")
+#links oben rechs unten
+def quer1(spielfeld, checker):
+    counter = 0
+    e = 0
+    for i in range(3):
+        if spielfeld[i][e] == checker:
+            counter += 1
+        e += 1
+        if counter == 3:
+            return 1
 
-
-
+#links unten rechts oben
+def quer2(spielfeld, checker):
+    counter = 0
+    e = 2
+    for i in range(3):
+        if spielfeld[e][i] == checker:
+            counter += 1
+        e -= 1
+        if counter == 3:
+            return 1
 
 spieler = 0
 while abruch != 0:
