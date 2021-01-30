@@ -1,11 +1,7 @@
-spielfeld = [[None,None,None],
-             [None,None,None],
-             [None,None,None]]
-
-
+spielfeld = [[ 111 , 222 , 333 ],
+             [ 444 , 555 , 666 ],
+             [ 777 , 888 , 999 ]]
 print("")
-
-
 
 def ausgabe_feld(spielfeld):
     for i in range(3):
@@ -54,48 +50,94 @@ def eingabe(spielfeld, liste, spieler):
     if spieler %2:
         spielfeld[liste[0]][liste[1]] = "X"
     else:
-        spielfeld[liste[0]][liste[1]] = "0"
-
-spieler = 0
-
-def check_stand(counter):
-    if counter == 3:
-        return 0
+        spielfeld[liste[0]][liste[1]] = "O"
 
 
-
-def abruch(spielfeld, spieler):
-    counter = 0
-    # dann ablauf für spieler 1
-    if spieler % 2:
-        # horizontalen linien abgehandelt:
+def abruchbedingung1(spielfeld, spieler):
+    if spieler %2:
+    # horizontal
         for i in range(3):
-            for e in range(2):
-                if spielfeld[i][e] == spielfeld[i][e +1]:
+            counter = 0
+            for e in range(3):
+                if spielfeld[i][e] == "X":
                     counter += 1
-        check_stand(counter)
-        counter = 0
+            if counter == 3:
+                ausgabe_feld(spielfeld)
+                print("Spieler 1 hat gewonnen")
+                return 0
+                break
+
         e = 0
-        #vertikale  Linien oben unten abgehandelt
-        for i  in range(2):
-            if spielfeld[i][e] == spielfeld[i+1][e+1]:
+        counter = 0
+        for i in range(3):
+            if spielfeld[i][e] == "X":
                 counter += 1
             e += 1
-        check_stand(counter)
-        counter = 0
+            if counter == 3:
+                ausgabe_feld(spielfeld)
+                print("Spieler 1 hat gewonnen")
+                return 0
+                break
+
         e = 2
-        #vertikale Linien unten oben abgehandelt
-        for i in range(2, 0, -1):
-            if spielfeld[i][e] == spielfeld[i-1][e-1]:
+        counter = 0
+        for i in range(2, -1, -1):
+            if spielfeld[i][e] == "X":
                 counter += 1
             e -= 1
-        check_stand(counter)
+            if counter == 3:
+                ausgabe_feld(spielfeld)
+                print("Spieler 1 hat gewonnen")
+                return 0
+                break
+
+
+    else:
+        # horizontal
+        for i in range(3):
+            counter = 0
+            for e in range(3):
+                if spielfeld[i][e] == "O":
+                    counter += 1
+            if counter == 3:
+                ausgabe_feld(spielfeld)
+                print("Spieler 2 hat gewonnen")
+                return 0
+                break
+
+        e = 0
         counter = 0
+        for i in range(3):
+            if spielfeld[i][e] == "O":
+                counter += 1
+            e += 1
+            if counter == 3:
+                ausgabe_feld(spielfeld)
+                print("Spieler 2 hat gewonnen")
+                return 0
+                break
+
+        e = 2
+        counter = 0
+        for i in range(2, -1, -1):
+            if spielfeld[i][e] == "O":
+                counter += 1
+            e -= 1
+            if counter == 3:
+                ausgabe_feld(spielfeld)
+                print("Spieler 2 hat gewonnen")
+                return 0
+                break
 
 
+
+
+
+
+spieler = 0
 while abruch != 0:
     spieler += 1
     liste = conversion(spieler)
     eingabe(spielfeld, liste, spieler)
-    abruch = abruch(spielfeld, spieler)
+    abruch = abruchbedingung1(spielfeld, spieler)
 
